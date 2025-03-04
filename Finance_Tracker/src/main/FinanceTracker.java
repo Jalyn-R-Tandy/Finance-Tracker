@@ -17,7 +17,7 @@ public class FinanceTracker {
             System.out.println(t);
         }
 
-        // Delete a transaction (example: delete ID 1)
-        TransactionDAO.deleteTransaction(1);
+        // Delete a transaction
+        TransactionDAO.deleteAllTransactions();
     }
 }
