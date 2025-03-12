@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="view.MainViewController"
+            prefHeight="600.0" prefWidth="900.0">
+    <top>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <HBox alignment="CENTER" spacing="10">
+                <Label text="Finance Tracker" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+            </HBox>
+            <HBox alignment="CENTER" spacing="15">
+                <Button text="Add Transaction" onAction="#handleAddTransaction"/>
+                <Button text="View Transactions" onAction="#handleViewTransactions"/>
+                <Button text="Reports" onAction="#handleReports"/>
+                <Button text="Budgets" onAction="#handleBudgets"/>
+            </HBox>
+        </VBox>
+    </top>
+    
+    <center>
+        <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE">
+            <Tab text="Dashboard">
+                <VBox spacing="20" alignment="TOP_CENTER">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+                    <HBox spacing="20" alignment="CENTER">
+                        <VBox styleClass="summary-card" alignment="CENTER">
+                            <Label text="Income" styleClass="card-title"/>
+                            <Label fx:id="incomeTotalLabel" text="$0.00" styleClass="card-value"/>
+                        </VBox>
+                        <VBox styleClass="summary-card" alignment="CENTER">
+                            <Label text="Expenses" styleClass="card-title"/>
+                            <Label fx:id="expenseTotalLabel" text="$0.00" styleClass="card-value"/>
+                        </VBox>
+                        <VBox styleClass="summary-card" alignment="CENTER">
+                            <Label text="Balance" styleClass="card-title"/>
+                            <Label fx:id="balanceLabel" text="$0.00" styleClass="card-value"/>
+                        </VBox>
+                    </HBox>
+                    <Label text="Recent Transactions" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                    <TableView fx:id="recentTransactionsTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="dateColumn" text="Date" prefWidth="100"/>
+                            <TableColumn fx:id="typeColumn" text="Type" prefWidth="100"/>
+                            <TableColumn fx:id="categoryColumn" text="Category" prefWidth="150"/>
+                            <TableColumn fx:id="amountColumn" text="Amount" prefWidth="100"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </Tab>
+            <Tab text="Transactions">
+                <VBox spacing="10">
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                        <Button text="Add" onAction="#handleAddTransaction"/>
+                        <Button text="Edit" onAction="#handleEditTransaction"/>
+                        <Button text="Delete" onAction="#handleDeleteTransaction"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <TextField fx:id="searchField" promptText="Search transactions"/>
+                        <Button text="Search" onAction="#handleSearch"/>
+                    </HBox>
+                    <TableView fx:id="transactionsTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
+                            <TableColumn fx:id="transDateColumn" text="Date" prefWidth="100"/>
+                            <TableColumn fx:id="transTypeColumn" text="Type" prefWidth="100"/>
+                            <TableColumn fx:id="transCategoryColumn" text="Category" prefWidth="150"/>
+                            <TableColumn fx:id="transAmountColumn" text="Amount" prefWidth="100"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </Tab>
+        </TabPane>
+    </center>
+</BorderPane>
