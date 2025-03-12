@@ -22,7 +22,7 @@ public class TransactionDAO {
             pstmt.setString(3, category);
             pstmt.setString(4, date);
             pstmt.executeUpdate();
-            System.out.println("Transaction added!");
+            System.out.println("Transaction added! \n");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -65,9 +65,9 @@ public class TransactionDAO {
             pstmt.setInt(1, id);
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
-                System.out.println("Transaction deleted.");
+                System.out.println("Transaction deleted. \n");
             } else {
-                System.out.println("Transaction not found.");
+                System.out.println("Transaction not found. \n");
             }
 
         } catch (SQLException e) {
@@ -84,7 +84,7 @@ public class TransactionDAO {
     		
     		int affectedRows = stmt.executeUpdate(sql);
     		if (affectedRows >= 0) {
-    			System.out.println("All transactions deleted.");
+    			System.out.println("All transactions deleted. \n");
     		}
     	} catch (SQLException e) {
     		e.printStackTrace();

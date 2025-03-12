@@ -18,40 +18,54 @@ public class FinanceTracker {
 	// Prompts user to select transaction choice
     public static int getUserChoice() {
         Scanner scnr = new Scanner(System.in);
-        int usrChoice;
-        
-        while (true) {
-            if (scnr.hasNextInt()) {
-                usrChoice = scnr.nextInt();
-                if (usrChoice >= 1 && usrChoice <= 5) {
-                    return usrChoice;
-                } else {
-                    System.out.println("Error: " + usrChoice + " is an invalid input");
-                }
-            } else {
-                System.out.println("Please enter a valid number");
-                scnr.next();
-            }
-        }
+		int usrChoice;
+		
+		while (true) {
+		    if (scnr.hasNextInt()) {
+		        usrChoice = scnr.nextInt();
+		        if (usrChoice >= 1 && usrChoice <= 5) {
+		            return usrChoice;
+		        } else {
+		            System.out.println("Error: " + usrChoice + " is an invalid input");
+		            System.out.print("Enter: ");
+		        }
+		    } else {
+		        System.out.println("Please enter a valid number");
+		        System.out.print("Enter: ");
+		    }
+		}
     }
     
     // Prints final transactions table
+//    public static void printTransactions() {
+//    	 List<Transaction> transactions = TransactionDAO.getAllTransactions();
+//         System.out.println("Transaction History:");
+//         for (Transaction t : transactions) {
+//             System.out.println(t);
+//         }
+//    }
+    
+ // In FinanceTracker.java, modify the printTransactions() method:
     public static void printTransactions() {
-    	 List<Transaction> transactions = TransactionDAO.getAllTransactions();
-         System.out.println("Transaction History:");
-         for (Transaction t : transactions) {
-             System.out.println(t);
-         }
+        List<Transaction> transactions = TransactionDAO.getAllTransactions();
+        
+        if (transactions.isEmpty()) {
+            System.out.println("No transactions to display.");
+        } else {
+            System.out.println("Transaction History:");
+            System.out.println("ID | Type | Amount | Category | Date");
+            System.out.println("-------------------------------------");
+            for (Transaction t : transactions) {
+                System.out.println(t);
+            }
+        }
     }
     
     public static void main(String[] args) {
         Scanner scnr = new Scanner(System.in);
         
         
-        /*
-         * FIX THIS
-         * Transaction table isn't printing at all.
-         */
+        // Runs finance tracker until user exits
         while (true) {
             welcomeScreen();
             int usrChoice = getUserChoice();
@@ -59,13 +73,17 @@ public class FinanceTracker {
             switch (usrChoice) {
                 case 1:
                     System.out.println("Income OR Expense? ");
-                    String type = scnr.next();
+                    String type = scnr.nextLine();
+                    
                     System.out.println("Amount: ");
                     int amount = scnr.nextInt();
+                    
                     System.out.println("What category? ");
                     String category = scnr.next();
+                    scnr.nextLine();
+                    
                     System.out.println("Date? ");
-                    String date = scnr.next();
+                    String date = scnr.nextLine();
                     
                     TransactionDAO.addTransaction(type, amount, category, date);
                     printTransactions();
@@ -82,9 +100,11 @@ public class FinanceTracker {
                     TransactionDAO.deleteAllTransactions();
                     printTransactions();
                     break;
-                    
+                
                 case 4:
                     printTransactions();
+                    System.out.println("Press Enter to continue...");
+                    scnr.nextLine();
                     break;
                     
                 case 5:
@@ -96,7 +116,7 @@ public class FinanceTracker {
                     System.out.println("Invalid choice. Please try again.");
             }
             
-            System.out.println("\n"); // Add some spacing between operations
+            System.out.println("\n");
         }
     }
 }
